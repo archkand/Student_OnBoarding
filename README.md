@@ -1,4 +1,4 @@
-Student Onboarding System
+﻿Student Onboarding System
 
 Overview:
 Niner onBoard is a task management application for students that will guide them through important tasks and activities that they need to complete during the onboarding period.
@@ -31,7 +31,7 @@ Admin view:
 Student view:
 • Provide a list of tasks to be done. 
 • Notify the upcoming tasks and deadlines for those. 
-• Activity for r engagement, receiving rewards for completing the task. 
+• Activity for engagement, receiving rewards for completing the task. 
 • Information about the culture, clubs in university. 
 • Confirm all key events and help guide people to locations. 
 • Self-check-in for seminars and workshops. 
