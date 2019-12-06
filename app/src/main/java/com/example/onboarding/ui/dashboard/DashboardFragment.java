@@ -28,7 +28,7 @@ public class DashboardFragment extends Fragment {
     private RecyclerView.LayoutManager wLayoutManager;
     List<Workshop> workshopList = new ArrayList<>();
     View root;
-    String workshopURL = "http://192.168.118.2:3000/workshopStudent/getAll";
+    String workshopURL = "http://localhost:3000/workshopStudent/getAll";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

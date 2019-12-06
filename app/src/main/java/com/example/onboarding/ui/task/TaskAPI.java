@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -43,13 +44,16 @@ public class TaskAPI {
     }
     public void execute() {
 
-        Log.d("chella", "hit the Information execute");
+        Log.d("stest", "hit the gettask execute");
         OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder httpBuider = HttpUrl.parse(taskURL).newBuilder();
+        httpBuider .addQueryParameter("emailId","sheetalpatil217@gmail.com");
 
         Request request = new Request.Builder()
-                .url(taskURL)
+                .url(httpBuider.build())
                 .get()
                 .build();
+
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -61,24 +65,25 @@ public class TaskAPI {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 jsonData = response.body().string();
-                Log.d("chella", "jsondata" + jsonData);
+                Log.d("stest", "jsondata" + jsonData);
                 JSONObject jsonObject=null;
                 try{
                     jsonObject = new JSONObject(jsonData);
                     // Log.d("sheetal",e.getMessage());
                     if (jsonObject.getString("status").equalsIgnoreCase("success")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        Log.d("chella","jsonArray"+ jsonArray);
+                        Log.d("stest","jsonArray"+ jsonArray);
                         for(int i =0; i<jsonArray.length();i++) {
                             JSONObject taskJSONObject = jsonArray.getJSONObject(i);
                             task = new Task();
-                            task.setId(taskJSONObject.getString("taskId"));
+                            task.setId(taskJSONObject.getString("id"));
                             task.setTaskName(taskJSONObject.getString("taskName"));
-                            task.setDescription(taskJSONObject.getString("taskDescription"));
-                            task.setDueDate(taskJSONObject.getString("taskDueDate"));
-                            task.setRewards(taskJSONObject.getString("taskReward"));
+                            task.setDescription(taskJSONObject.getString("description"));
+                            task.setDueDate(taskJSONObject.getString("dueDate"));
+                            task.setRewards(taskJSONObject.getString("rewards"));
+                            task.setStatus(taskJSONObject.getString("status"));
+                            task.setNotify(taskJSONObject.getString("notify"));
                             taskList.add(task);
-
                         }
 
 
@@ -87,7 +92,7 @@ public class TaskAPI {
                             public void handleMessage(Message msg) {
                                 // Any UI task, example
                                 task_List.addAll(taskList);
-                                //Log.d("chella","Product List on parsing the JSON "+prod_list);
+                                Log.d("stest","Product List on parsing the JSON "+task_List);
                                 taskAdapter.notifyDataSetChanged();
                             }
                         };

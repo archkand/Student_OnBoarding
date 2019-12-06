@@ -2,6 +2,7 @@ package com.example.onboarding.ui.task;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +27,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     List<Task> tasks;
     FragmentActivity context;
     Profile profile;
-    String notifyURL ="http://192.168.118.2:3000/taskStudent/notify";
-    String sendURL = "http://192.168.118.2:3000/taskStudent/sendVerify";
+    String notifyURL ="http://localhost:3000/taskStudent/notify";
+    String sendURL = "http://localhost:3000/taskStudent/sendVerify";
     List<Task> notifyTasks;
     RecyclerView.Adapter taskAdapter;
+    String Progress;
 
     public TaskAdapter(List<Task> taskList, FragmentActivity con, Profile profile,RecyclerView.Adapter adapter) {
         tasks = taskList;
@@ -51,8 +53,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d("chella","Tasks list"+ tasks.toString());
         final Task task = tasks.get(position);
+        Progress="not_send";
         holder.taskName.setText(task.getTaskName());
         holder.dueDateText.setText(task.getDueDate());
+        Log.d("stest","task "+task.toString());
+        Log.d("stest","task "+task.getNotify());
+        if(task.getNotify().equalsIgnoreCase("OFF")){
+            Log.d("stest","Inside off notify");
+            holder.taskNotify.setImageResource(R.drawable.ic_notifications_off_black_24dp);
+        }
+
+
+        if(task.getStatus()=="InProgress"){
+            Progress="send";
+        }
+
+
         holder.taskNotify.setClickable(true);
         holder.taskNotify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +80,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 }
             }
         });
+
         holder.downArrow.setClickable(true);
         holder.downArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,17 +89,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(task.getTaskName());
                 Log.d("chella","Inside Builder Message"+task.getTaskName());
-                builder.setMessage(task.getDescription()+"\n"+"\n"+"Due Date: "+task.getDueDate()+"\n"+"\n"+"Rewards: "+task.getRewards())
-                        .setPositiveButton(R.string.sendButton, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                try {
-                                    new NotifyAPI(task,profile,sendURL,context,notifyTasks,taskAdapter,"verify").execute();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                builder.setTitle(task.getTaskName());
 
-                        });
+                builder.setMessage(task.getDescription()+"\n"+"\n"+"Due Date: "+task.getDueDate()+"\n"+"\n"+"Rewards: "+task.getRewards());
+
+                if(Progress.equalsIgnoreCase("send")){
+                    builder.setMessage("Sent for Verfification");
+                }else{
+                    builder.setPositiveButton(R.string.sendButton, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            try {
+                                new NotifyAPI(task,profile,sendURL,context,notifyTasks,taskAdapter,"verify").execute();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    });
+                }
+
                 // Create the AlertDialog object and return it
                 builder.create();
                 builder.show();

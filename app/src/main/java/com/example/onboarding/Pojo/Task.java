@@ -1,7 +1,8 @@
 package com.example.onboarding.Pojo;
 
 public class Task {
-    String id,taskName,description, dueDate, rewards;
+    String id,taskName,description, dueDate, rewards,status,notify;
+
 
     public String getId() {
         return id;
@@ -43,14 +44,21 @@ public class Task {
         this.rewards = rewards;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id='" + id + '\'' +
-                ", taskName='" + taskName + '\'' +
-                ", description='" + description + '\'' +
-                ", dueDate='" + dueDate + '\'' +
-                ", rewards='" + rewards + '\'' +
-                '}';
+    public String getStatus() {
+        return status;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getNotify() {
+        return notify;
+    }
+
+    public void setNotify(String notify) {
+        this.notify = notify;
+    }
+
+
 }

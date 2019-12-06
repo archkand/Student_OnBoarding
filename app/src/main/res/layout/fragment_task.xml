@@ -7,23 +7,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/taskList"
-        android:layout_width="382dp"
-        android:layout_height="570dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="1dp"
         android:background="@drawable/gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verifyList" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/verifyList"
-        android:layout_width="397dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
