@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         profile = (Profile) bundle.getSerializable("profile");
-        Log.d("chella",profile.getId()+" "+profile.getStudentID());
+
+        Log.d("chella","profile after intent"+profile.toString());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 profile.setId(emailId.getText().toString());
                 profile.setStudentID(studentId.getText().toString());
-                Log.d("chella","Profile");
+              //  Log.d("chella","Profile");
                 new LoginAPI(loginURL,profile,LoginActivity.this).execute();
 
 

@@ -1,6 +1,7 @@
 package com.example.onboarding.ui.dashboard;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.onboarding.MainActivity;
+import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.Pojo.Workshop;
 import com.example.onboarding.R;
 
@@ -28,6 +31,7 @@ public class DashboardFragment extends Fragment {
     private RecyclerView.LayoutManager wLayoutManager;
     List<Workshop> workshopList = new ArrayList<>();
     View root;
+    Profile profile;
     String workshopURL = "http://localhost:3000/workshopStudent/getAll";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -38,12 +42,15 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        profile = ((MainActivity)getActivity()).profile;
+
         wRecyclerView = root.findViewById(R.id.workshopList);
         wRecyclerView.setHasFixedSize(true);
         wLayoutManager = new LinearLayoutManager(getContext());
         wRecyclerView.setLayoutManager(wLayoutManager);
         workshopAdapter= new WorkshopAdapter(workshopList,getActivity());
         wRecyclerView.setAdapter(workshopAdapter);
+
 
         try {
             new WorkshopAPI(workshopURL,getActivity(),workshopAdapter,workshopList).execute();

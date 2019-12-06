@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.onboarding.MainActivity;
 import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.R;
 
@@ -21,8 +22,8 @@ import com.example.onboarding.R;
 public class ProfileFragment extends Fragment {
 
     View root;
-    String profileURL = "http://192.168.118.2:3000/profileStudent/";
-    Profile profile = new Profile();
+    //String profileURL = "http://192.168.48.2:3000/profileStudent/";
+    Profile profile;
     String notify;
 
 
@@ -30,7 +31,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         root = inflater.inflate(R.layout.fragment_profile, container, false);
         return root;
     }
@@ -38,6 +38,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        profile = ((MainActivity)getActivity()).profile;
         ImageView profileImage = root.findViewById(R.id.profileImage);
         TextView profileName = root.findViewById(R.id.profileName);
         TextView profileID = root.findViewById(R.id.profileId);
@@ -47,8 +48,7 @@ public class ProfileFragment extends Fragment {
 
         profile.setId("sheetalpatil217@gmail.com");
 
-        new ProfileAPI(profileURL,getActivity(),profile).execute();
-
+        //new ProfileAPI(profileURL,profile).execute();
         profileName.setText(profile.getName());
         profileID.setText(profile.getStudentID());
         rewards.setText(profile.getRewards());
