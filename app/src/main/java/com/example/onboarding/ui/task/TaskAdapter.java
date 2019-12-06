@@ -26,8 +26,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     List<Task> tasks;
     FragmentActivity context;
     Profile profile;
-    String notifyURL ="http://192.168.118.2:3000/taskStudent/notify";
-    String sendURL = "http://192.168.118.2:3000/taskStudent/sendVerify";
+    String notifyURL ="http://localhost:3000/taskStudent/notify";
+    String sendURL = "http://localhost:3000/taskStudent/sendVerify";
     List<Task> notifyTasks;
     RecyclerView.Adapter taskAdapter;
 

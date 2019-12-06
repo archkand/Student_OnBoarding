@@ -1,5 +1,8 @@
 package com.example.onboarding.ui.profile;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -8,6 +11,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
+
+import com.example.onboarding.MainActivity;
 import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.R;
 import com.google.gson.Gson;
@@ -31,20 +36,19 @@ import okhttp3.Response;
 public class ProfileAPI {
 
     String profileURL;
-    FragmentActivity context;
+    //FragmentActivity context;
     String jsonData;
-    List<Profile> profileList = new ArrayList<>();
-    List<Profile> profile_List;
     Profile profile;
     String notify;
     Switch notification;
+    Activity act;
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public ProfileAPI(String profileURL, FragmentActivity context, Profile profile) {
+    public ProfileAPI(String profileURL, Profile profile, Activity activity) {
         this.profileURL = profileURL;
-        this.context = context;
         this.profile = profile;
+        act=activity;
     }
 
     public void execute() {
@@ -94,33 +98,18 @@ public class ProfileAPI {
                             profile.setPastTask(profileJSONObject.getString("pastTask"));
                             profile.setPastWorkshop(profileJSONObject.getString("pastWorkshop"));
                             profile.setStep(profileJSONObject.getString("step"));
-                            //profileList.add(profile);
                         }
-
-
 
                         Handler handler = new Handler(Looper.getMainLooper()) {
                             @Override
                             public void handleMessage(Message msg) {
                                 // Any UI task, example
-                               // profile_List.addAll(profileList);
-                                Log.d("chella","setting the user profile"+profile);
-
-                                ((TextView)context.findViewById(R.id.profileName)).setText(profile.getName());
-                                ((TextView)context.findViewById(R.id.profileId)).setText(profile.getStudentID());
-                                ((TextView)context.findViewById(R.id.rewardText)).setText(profile.getRewards());
-                                notification = ((Switch)context.findViewById(R.id.notificationSwitch));
-                                notify = profile.getNotification();
-                                Log.d("chella","notify "+notify);
-                                if(notify.equalsIgnoreCase("ON")){
-                                    Log.d("chella","notify"+profile.getNotification());
-                                    notification.setChecked(true);
-                                }
-                                else {
-                                    notification.setChecked(false);
-                                }
-
-
+                                Log.d("chella","before putting it in intent"+profile.toString());
+                                Intent intent = new Intent(act, MainActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("profile", profile);
+                                intent.putExtras(bundle);
+                                act.startActivity(intent);
                             }
                         };
                         handler.sendEmptyMessage(1);

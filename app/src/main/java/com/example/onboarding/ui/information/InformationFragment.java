@@ -27,7 +27,7 @@ public class InformationFragment extends Fragment {
     private RecyclerView.LayoutManager infoLayoutManager;
     List<Info> infoList = new ArrayList<>();
     View root;
-    String informationURL = "http://192.168.118.2:3000/informationStudent/getAll";
+    String informationURL = "http://192.168.48.2:3000/informationStudent/getAll";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

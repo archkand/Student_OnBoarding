@@ -33,8 +33,8 @@ public class TaskFragment extends Fragment {
     List<Task> verifyTaskList = new ArrayList<>();
     Profile profile;
     View root;
-    String taskURL = "http://192.168.118.2:3000/taskStudent/getAll";
-    String verifyTaskURL = "http://192.168.118.2:3000/taskStudent/getStudentTask";
+    String taskURL = "http://localhost:3000/taskStudent/getAll";
+    String verifyTaskURL = "http://localhost:3000/taskStudent/getStudentTask";
 
 
 

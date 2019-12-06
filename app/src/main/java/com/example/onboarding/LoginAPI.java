@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.onboarding.Pojo.Profile;
+import com.example.onboarding.ui.profile.ProfileAPI;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -33,6 +34,7 @@ public class LoginAPI {
     Profile profile;
     String jsonData;
     Activity context;
+    String profileURL = "http://localhost:3000/profileStudent/";
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -74,11 +76,7 @@ public class LoginAPI {
                     Log.d("chella","inside the response");
                     Looper.prepare();
                     Toast.makeText(context, "Login successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, MainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("profile", profile);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent);
+                    new ProfileAPI(profileURL,profile,context).execute();
                     Looper.loop();
                 }
                 else {

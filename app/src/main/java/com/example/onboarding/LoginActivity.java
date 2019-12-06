@@ -16,7 +16,7 @@ import com.example.onboarding.Pojo.Profile;
 public class LoginActivity extends AppCompatActivity {
 
     Profile profile = new Profile();
-    String loginURL = "http://192.168.118.2:3000/login/student";
+    String loginURL = "http://localhost:3000/login/student";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 profile.setId(emailId.getText().toString());
                 profile.setStudentID(studentId.getText().toString());
-                Log.d("chella","Profile");
+              //  Log.d("chella","Profile");
                 new LoginAPI(loginURL,profile,LoginActivity.this).execute();
 
 
