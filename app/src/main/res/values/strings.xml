@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">onBoarding</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="clubsText">Clubs</string>
+    <string name="close">Close</string>
+    <string name="info">Information</string>
+    <string name="workshop">Workshop</string>
+    <string name="registerButton">Register</string>
+    <string name="cancel">Cancel</string>
+    <string name="profile">Profile</string>
+    <string name="rewardText">0</string>
+    <string name="rewards">Rewards</string>
+    <string name="notification">Notification</string>
+    <string name="pastWorkshops">Past Workshops</string>
+    <string name="pastTasks">Past Tasks</string>
+    <string name="dueDate">Due Date: </string>
+    <string name="sendButton">send </string>
+    <string name="email">Enter your Email Id</string>
+    <string name="studentID">Enter your Student Id</string>
+    <string name="login">Login</string>
+    <string name="EmailText">Email</string>
+    <string name="PasswordText">Password</string>
+    <string name="AppName">Niner onBoard</string>
+    <string name="upcomingworkshop">Upcoming Workshops</string>
+</resources>
