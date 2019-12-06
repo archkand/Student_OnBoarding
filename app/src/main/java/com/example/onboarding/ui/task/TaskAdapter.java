@@ -32,7 +32,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     List<Task> notifyTasks;
     RecyclerView.Adapter taskAdapter;
     String Progress;
-
+    String notifySend="OFF";
     public TaskAdapter(List<Task> taskList, FragmentActivity con, Profile profile,RecyclerView.Adapter adapter) {
         tasks = taskList;
         context = con;
@@ -50,7 +50,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Log.d("chella","Tasks list"+ tasks.toString());
         final Task task = tasks.get(position);
         Progress="not_send";
@@ -60,21 +60,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         Log.d("stest","task "+task.getNotify());
         if(task.getNotify().equalsIgnoreCase("OFF")){
             Log.d("stest","Inside off notify");
+            notifySend="ON";
+            holder.taskNotify.setTag("ON");
             holder.taskNotify.setImageResource(R.drawable.ic_notifications_off_black_24dp);
+        }else{
+            holder.taskNotify.setTag("OFF");
         }
-
-
         if(task.getStatus()=="InProgress"){
             Progress="send";
         }
-
 
         holder.taskNotify.setClickable(true);
         holder.taskNotify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    new NotifyAPI(task,profile,notifyURL,context,notifyTasks,taskAdapter,"notify").execute();
+                    if(holder.taskNotify.getTag().toString().equalsIgnoreCase("ON")){
+                        tasks.get(position).setNotify("ON");
+                        holder.taskNotify.setImageResource(R.drawable.ic_notifications_black_24dp);
+                    }else{
+                        tasks.get(position).setNotify("OFF");
+                        holder.taskNotify.setImageResource(R.drawable.ic_notifications_off_black_24dp);
+                    }
+                 //   Log.d("stest","notifysend value"+holder.taskNotify.getTag());
+
+                    notifyDataSetChanged();
+                    new NotifyAPI(task,profile,notifyURL,context,notifyTasks,taskAdapter,"notify",holder.taskNotify.getTag().toString()).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -99,7 +110,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     builder.setPositiveButton(R.string.sendButton, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             try {
-                                new NotifyAPI(task,profile,sendURL,context,notifyTasks,taskAdapter,"verify").execute();
+                                new NotifyAPI(task,profile,sendURL,context,notifyTasks,taskAdapter,"verify",notifySend).execute();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.Pojo.Task;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,22 +33,24 @@ public class TaskAPI {
     List<Task> taskList = new ArrayList<>();
     List<Task> task_List;
     private RecyclerView.Adapter taskAdapter;
+    Profile profile;
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public TaskAPI(String URL, FragmentActivity con, RecyclerView.Adapter tAdapter, List<Task> tasks) throws IOException {
+    public TaskAPI(String URL, FragmentActivity con, RecyclerView.Adapter tAdapter, List<Task> tasks, Profile pro) throws IOException {
         taskURL=URL;
         context=con;
         task= new Task();
         taskAdapter=tAdapter;
         task_List=tasks;
+        profile=pro;
     }
     public void execute() {
 
         Log.d("stest", "hit the gettask execute");
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder httpBuider = HttpUrl.parse(taskURL).newBuilder();
-        httpBuider .addQueryParameter("emailId","sheetalpatil217@gmail.com");
+        httpBuider .addQueryParameter("emailId",profile.getId());
 
         Request request = new Request.Builder()
                 .url(httpBuider.build())

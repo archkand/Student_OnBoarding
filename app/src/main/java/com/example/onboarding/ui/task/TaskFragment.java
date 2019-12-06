@@ -43,17 +43,19 @@ public class TaskFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        profile = ((MainActivity)getActivity()).profile;
+
         //Task List
         tRecyclerView = root.findViewById(R.id.taskList);
         tRecyclerView.setHasFixedSize(true);
         tLayoutManager = new LinearLayoutManager(getContext());
         tRecyclerView.setLayoutManager(tLayoutManager);
-        taskAdapter= new TaskAdapter(taskList,getActivity(),((MainActivity)getActivity()).profile ,taskAdapter);
+        taskAdapter= new TaskAdapter(taskList,getActivity(), profile,taskAdapter);
         tRecyclerView.setAdapter(taskAdapter);
         taskAdapter.notifyDataSetChanged();
 
         try {
-            new TaskAPI(verifyTaskURL,getActivity(),taskAdapter,taskList).execute();
+            new TaskAPI(verifyTaskURL,getActivity(),taskAdapter,taskList,profile).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

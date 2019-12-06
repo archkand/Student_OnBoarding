@@ -40,11 +40,12 @@ public class NotifyAPI {
     Profile profile;
     RecyclerView.Adapter notifyAdapter;
 String Type;
+String notifySend;
     //task,profile,notifyURL,context,notifyTasks
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public NotifyAPI(Task task, Profile profile, String URL, FragmentActivity con, List<Task> notifyTaskList,RecyclerView.Adapter adapter,String type) throws IOException {
+    public NotifyAPI(Task task, Profile profile, String URL, FragmentActivity con, List<Task> notifyTaskList,RecyclerView.Adapter adapter,String type,String notify) throws IOException {
         notifyTask = task;
         this.profile = profile;
         notifyURL = URL;
@@ -52,28 +53,23 @@ String Type;
         notify_List = notifyTaskList;
         notifyAdapter = adapter;
         Type=type;
+        notifySend =notify;
     }
     public void execute() {
-
-        Log.d("chella", "hit the Information execute");
         OkHttpClient client = new OkHttpClient();
-
         Gson gson = new Gson();
+
         String email =profile.getId();
         String task = notifyTask.getId();
-        String notify = "OFF";
         String emailId="";
-        //String emailId =  "{\"emailId\":\""+email+"\",\"taskId\":\""+task+"\",\"notify\":\""+notify+"\"}";
         if(Type.equalsIgnoreCase("verify")){
-            emailId="{\"taskId\":\""+task+"\"}";
+            emailId="{\"emailId\":\""+email+"\",\"taskId\":\""+task+"\"}";
         }else{
-
+            emailId="{\"emailId\":\""+email+"\",\"notify\":\""+notifySend+"\",\"taskId\":\""+task+"\"}";
         }
         JsonParser jsonparer= new JsonParser();
         JsonObject jobject = jsonparer.parse(emailId).getAsJsonObject();
         String param = gson.toJson(jobject);
-        Log.d("chella","json"+email);
-        Log.d("chella","json"+param);
 
         RequestBody body = RequestBody.create(JSON, param);
 
@@ -98,7 +94,12 @@ String Type;
                         @Override
                         public void handleMessage(Message msg) {
                             // Any UI task, example
-                            Toast.makeText(context, notifyTask.getTaskName()+ " is sent to verify", Toast.LENGTH_SHORT).show();
+
+                            if(Type.equalsIgnoreCase("verify")){
+                                Toast.makeText(context, notifyTask.getTaskName()+ " is sent to verify", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context, "You turned "+notifySend+" notification for "+notifyTask.getTaskName(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     };
                     handler.sendEmptyMessage(1);
