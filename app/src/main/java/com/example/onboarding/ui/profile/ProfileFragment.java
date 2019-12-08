@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class ProfileFragment extends Fragment {
         ImageView editProfile = root.findViewById(R.id.editProfile);
         TextView rewards = root.findViewById(R.id.rewardText);
         Switch notification = root.findViewById(R.id.notificationSwitch);
+        ImageView sideArrow = root.findViewById(R.id.sideArrow);
 
         profile.setId("sheetalpatil217@gmail.com");
 
@@ -60,6 +62,14 @@ public class ProfileFragment extends Fragment {
             notification.setChecked(false);
         }
 
+        sideArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayout profileLayout = (ConstraintLayout) root.findViewById(R.id.profile_constraintLayout);
+                profileLayout.removeAllViews();
+                getFragmentManager().beginTransaction().add(R.id.profile_constraintLayout,new PastTaskFragment(),"pastTask").addToBackStack(null).commit();
+            }
+        });
 
     }
 

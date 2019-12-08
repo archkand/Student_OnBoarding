@@ -8,9 +8,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/informationList"
-        android:layout_width="364dp"
-        android:layout_height="553dp"
+        android:layout_width="489dp"
+        android:layout_height="909dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -19,7 +20,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="32dp"
         android:text="@string/clubsText"
         app:layout_constraintStart_toStartOf="parent"

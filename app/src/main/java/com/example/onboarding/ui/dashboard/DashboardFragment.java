@@ -1,5 +1,8 @@
 package com.example.onboarding.ui.dashboard;
 
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -33,6 +37,7 @@ public class DashboardFragment extends Fragment {
     View root;
     Profile profile;
     String workshopURL = "http://localhost:3000/workshopStudent/getAll";
+    String stepURL = "http://localhost:3000/dashboardStudent/step";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +48,25 @@ public class DashboardFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         profile = ((MainActivity)getActivity()).profile;
+        new StepAPI(stepURL,profile).execute();
+
+        View circleOne = root.findViewById(R.id.circle_one);
+        View circleTwo = root.findViewById(R.id.circle_two);
+        View circleThree = root.findViewById(R.id.circle_three);
+        //Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.step_circle);
+        Drawable greenCircle = ContextCompat.getDrawable(getContext(),R.drawable.circle_green);
+
+        switch (profile.getStep()){
+            case "1":
+                circleOne.setBackground(greenCircle);
+                break;
+            case "2":
+                circleTwo.setBackground(greenCircle);
+                break;
+            case "3":
+                circleThree.setBackground(greenCircle);
+                break;
+        }
 
         wRecyclerView = root.findViewById(R.id.workshopList);
         wRecyclerView.setHasFixedSize(true);

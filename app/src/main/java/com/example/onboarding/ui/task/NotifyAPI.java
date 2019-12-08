@@ -39,8 +39,8 @@ public class NotifyAPI {
     List<Task> notify_List;
     Profile profile;
     RecyclerView.Adapter notifyAdapter;
-String Type;
-String notifySend;
+    String Type;
+    String notifySend;
     //task,profile,notifyURL,context,notifyTasks
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");

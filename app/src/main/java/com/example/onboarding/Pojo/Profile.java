@@ -1,9 +1,11 @@
 package com.example.onboarding.Pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Profile implements Serializable {
-    String id, studentID, rewards, name, notification, studentImage, pastTask, pastWorkshop, step;
+    String id, studentID, rewards, name, notification, studentImage, pastWorkshop, step;
+    List<Task> pastTask;
 
     public String getId() {
         return id;
@@ -53,11 +55,11 @@ public class Profile implements Serializable {
         this.studentImage = studentImage;
     }
 
-    public String getPastTask() {
+    public List<Task> getPastTask() {
         return pastTask;
     }
 
-    public void setPastTask(String pastTask) {
+    public void setPastTask(List<Task> pastTask) {
         this.pastTask = pastTask;
     }
 
@@ -86,9 +88,9 @@ public class Profile implements Serializable {
                 ", name='" + name + '\'' +
                 ", notification='" + notification + '\'' +
                 ", studentImage='" + studentImage + '\'' +
-                ", pastTask='" + pastTask + '\'' +
                 ", pastWorkshop='" + pastWorkshop + '\'' +
                 ", step='" + step + '\'' +
+                ", pastTask=" + pastTask +
                 '}';
     }
 }

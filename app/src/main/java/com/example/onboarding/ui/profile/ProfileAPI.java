@@ -8,14 +8,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Switch;
-import android.widget.TextView;
-
-import androidx.fragment.app.FragmentActivity;
-
 import com.example.onboarding.MainActivity;
 import com.example.onboarding.Pojo.Profile;
+import com.example.onboarding.Pojo.Task;
 import com.example.onboarding.R;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +21,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -42,6 +41,8 @@ public class ProfileAPI {
     String notify;
     Switch notification;
     Activity act;
+    List<Task> past_task_list = new ArrayList<>();
+
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -95,10 +96,24 @@ public class ProfileAPI {
                             profile.setName(profileJSONObject.getString("name"));
                             profile.setNotification(profileJSONObject.getString("notification"));
                             profile.setStudentImage(profileJSONObject.getString("studentImg"));
-                            profile.setPastTask(profileJSONObject.getString("pastTask"));
+                            JSONArray pastTaskArray = profileJSONObject.getJSONArray("pastTask");
+                            for(int j=0;j<pastTaskArray.length();j++){
+                                Task task = new Task();
+                                JSONObject taskJSONObject = pastTaskArray.getJSONObject(j);
+                                task.setId(taskJSONObject.getString("_id"));
+                                task.setTaskName(taskJSONObject.getString("taskName"));
+                                task.setStatus(taskJSONObject.getString("status"));
+                                task.setNotify(taskJSONObject.getString("notify"));
+                                past_task_list.add(task);
+                                Log.d("chella","Past_Task_List "+past_task_list);
+                            }
+                            //profile.setPastTask((List<Task>) Arrays.asList(profileJSONObject.getString("pastTask")));
                             profile.setPastWorkshop(profileJSONObject.getString("pastWorkshop"));
                             profile.setStep(profileJSONObject.getString("step"));
+                            profile.setPastTask(past_task_list);
                         }
+
+                        Log.d("chella","Profile API past tasks "+past_task_list);
 
                         Handler handler = new Handler(Looper.getMainLooper()) {
                             @Override
