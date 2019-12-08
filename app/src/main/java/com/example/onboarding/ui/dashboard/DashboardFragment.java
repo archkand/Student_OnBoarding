@@ -61,9 +61,12 @@ public class DashboardFragment extends Fragment {
                 circleOne.setBackground(greenCircle);
                 break;
             case "2":
+                circleOne.setBackground(greenCircle);
                 circleTwo.setBackground(greenCircle);
                 break;
             case "3":
+                circleOne.setBackground(greenCircle);
+                circleTwo.setBackground(greenCircle);
                 circleThree.setBackground(greenCircle);
                 break;
         }

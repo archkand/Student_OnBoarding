@@ -10,7 +10,7 @@
         android:id="@+id/card_task"
         android:layout_width="391dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="8dp"
         android:minHeight="200dp"
         app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -28,7 +28,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class RegisterAPI {
-    String registerURL = "http://192.168.48.2:3000/workshopStudent/register";
+    String registerURL = "http://localhost:3000/workshopStudent/register";
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 FragmentActivity context;
 Workshop workshop;
