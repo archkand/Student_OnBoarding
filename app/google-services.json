@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "378724855190",
+    "firebase_url": "https://onboardingsystem.firebaseio.com",
+    "project_id": "onboardingsystem",
+    "storage_bucket": "onboardingsystem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378724855190:android:794376a257707942d081b7",
+        "android_client_info": {
+          "package_name": "com.example.onboarding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378724855190-r9ui45t7v10gg548e9j1ksfr6dbvsdh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTHK-qZaG0ajg8zqonOGPcHm5QpXKqyiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378724855190-r9ui45t7v10gg548e9j1ksfr6dbvsdh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
