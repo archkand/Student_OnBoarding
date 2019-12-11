@@ -1,4 +1,4 @@
-package com.example.onboarding.ui.profile;
+package com.example.onboarding.ui.inbox;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,13 +8,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Switch;
+
 import com.example.onboarding.MainActivity;
 import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.Pojo.Task;
 import com.example.onboarding.Pojo.Workshop;
-import com.example.onboarding.R;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +21,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -33,7 +31,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ProfileAPI {
+
+public class notifyListAPI {
 
     String profileURL;
     //FragmentActivity context;
@@ -48,7 +47,7 @@ public class ProfileAPI {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public ProfileAPI(String profileURL, Profile profile, Activity activity) {
+    public notifyListAPI(String profileURL, Profile profile, Activity activity) {
         this.profileURL = profileURL;
         this.profile = profile;
         act=activity;
@@ -156,12 +155,7 @@ public class ProfileAPI {
                             @Override
                             public void handleMessage(Message msg) {
                                 // Any UI task, example
-                                Log.d("chella","before putting it in intent"+profile.toString());
-                                Intent intent = new Intent(act, MainActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("profile", profile);
-                                intent.putExtras(bundle);
-                                act.startActivity(intent);
+                                ((MainActivity)act).profile =profile;
                             }
                         };
                         handler.sendEmptyMessage(1);

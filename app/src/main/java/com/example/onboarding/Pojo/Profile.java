@@ -1,9 +1,13 @@
 package com.example.onboarding.Pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Profile implements Serializable {
-    String id, studentID, rewards, name, notification, studentImage, pastTask, pastWorkshop, step;
+    String id, studentID, rewards, name, notification, studentImage, step;
+    List<Task> pastTask;
+    List<Workshop> pastWorkshop;
+    List<Task>notifyTask;
 
     public String getId() {
         return id;
@@ -53,19 +57,19 @@ public class Profile implements Serializable {
         this.studentImage = studentImage;
     }
 
-    public String getPastTask() {
+    public List<Task> getPastTask() {
         return pastTask;
     }
 
-    public void setPastTask(String pastTask) {
+    public void setPastTask(List<Task> pastTask) {
         this.pastTask = pastTask;
     }
 
-    public String getPastWorkshop() {
+    public List<Workshop> getPastWorkshop() {
         return pastWorkshop;
     }
 
-    public void setPastWorkshop(String pastWorkshop) {
+    public void setPastWorkshop(List<Workshop> pastWorkshop) {
         this.pastWorkshop = pastWorkshop;
     }
 
@@ -77,6 +81,14 @@ public class Profile implements Serializable {
         this.step = step;
     }
 
+    public List<Task> getNotifyTask() {
+        return notifyTask;
+    }
+
+    public void setNotifyTask(List<Task> notifyTask) {
+        this.notifyTask = notifyTask;
+    }
+
     @Override
     public String toString() {
         return "Profile{" +
@@ -86,9 +98,9 @@ public class Profile implements Serializable {
                 ", name='" + name + '\'' +
                 ", notification='" + notification + '\'' +
                 ", studentImage='" + studentImage + '\'' +
-                ", pastTask='" + pastTask + '\'' +
                 ", pastWorkshop='" + pastWorkshop + '\'' +
                 ", step='" + step + '\'' +
+                ", pastTask=" + pastTask +
                 '}';
     }
 }

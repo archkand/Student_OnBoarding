@@ -66,7 +66,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         }else{
             holder.taskNotify.setTag("OFF");
         }
-        if(task.getStatus()=="InProgress"){
+        if(task.getStatus().equalsIgnoreCase("InProgress")){
+            Log.d("stest","showing progress");
+            holder.downArrow.setVisibility(View.INVISIBLE);
+            holder.statusTaskText.setText("In Progress");
+            holder.statusTaskText.setVisibility(View.VISIBLE);
             Progress="send";
         }
 
@@ -75,8 +79,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 try {
+                    Log.d("stest","taskNotifycicked");
                     if(holder.taskNotify.getTag().toString().equalsIgnoreCase("ON")){
                         tasks.get(position).setNotify("ON");
+                        Log.d("stest","going here");
                         holder.taskNotify.setImageResource(R.drawable.ic_notifications_black_24dp);
                     }else{
                         tasks.get(position).setNotify("OFF");
@@ -85,6 +91,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                  //   Log.d("stest","notifysend value"+holder.taskNotify.getTag());
 
                     notifyDataSetChanged();
+                    Log.d("stest","icon change");
                     new NotifyAPI(task,profile,notifyURL,context,notifyTasks,taskAdapter,"notify",holder.taskNotify.getTag().toString()).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -92,10 +99,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             }
         });
 
+
+
         holder.downArrow.setClickable(true);
         holder.downArrow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 Log.d("chella","On the click of register");
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(task.getTaskName());
@@ -110,6 +119,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     builder.setPositiveButton(R.string.sendButton, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             try {
+                                holder.statusTaskText.setText("In Progress");
+                                holder.statusTaskText.setVisibility(View.VISIBLE);
+                                holder.downArrow.setVisibility(View.INVISIBLE);
                                 new NotifyAPI(task,profile,sendURL,context,notifyTasks,taskAdapter,"verify",notifySend).execute();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -135,7 +147,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView taskName, dueDateText;
+        TextView taskName, dueDateText,statusTaskText;
         ImageView taskNotify, downArrow;
 
 
@@ -145,7 +157,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             dueDateText = itemView.findViewById(R.id.dueDateText);
             taskNotify = itemView.findViewById(R.id.taskNotify);
             downArrow = itemView.findViewById(R.id.downArrow);
-
+            statusTaskText =itemView.findViewById(R.id.statusTaskText);
         }
     }
 }

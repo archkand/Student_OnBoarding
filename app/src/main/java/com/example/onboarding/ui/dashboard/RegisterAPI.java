@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.Pojo.Workshop;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -28,22 +29,23 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class RegisterAPI {
-    String registerURL = "http://192.168.48.2:3000/workshopStudent/register";
+    String registerURL = "http://localhost:3000/workshopStudent/register";
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-FragmentActivity context;
-Workshop workshop;
+    FragmentActivity context;
+    Workshop workshop;
+    Profile profile;
 
-    public RegisterAPI(FragmentActivity cn,Workshop w) {
+    public RegisterAPI(FragmentActivity cn, Workshop w, Profile p) {
         workshop=w;
         context=cn;
+        profile = p;
     }
 
     public void execute() {
 
         Gson gson = new Gson();
-        //String email ="sheetalpatil217@gmail.com";
-
-        String workshopId = "{\"workshopId\":\""+workshop.getId()+"\"}";
+        String workshopId = "{\"emailId\":\""+profile.getId()+"\",\"workshopId\":\""+workshop.getId()+"\"}";
+        Log.d("stest","string formaed"+workshopId);
         JsonParser jsonparer= new JsonParser();
         JsonObject jobject = jsonparer.parse(workshopId).getAsJsonObject();
         String param = gson.toJson(jobject);

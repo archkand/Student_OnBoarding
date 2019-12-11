@@ -7,6 +7,8 @@ import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.Pojo.Workshop;
 
 import org.json.JSONArray;
@@ -19,6 +21,7 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,24 +35,28 @@ public class WorkshopAPI {
     List<Workshop> workshopList = new ArrayList<>();
     List<Workshop> workshop_List;
     private RecyclerView.Adapter workshopAdapter;
+    Profile profile;
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public WorkshopAPI(String URL, FragmentActivity con, RecyclerView.Adapter infoAdapter, List<Workshop> workshops) throws IOException {
+    public WorkshopAPI(String URL, FragmentActivity con, RecyclerView.Adapter infoAdapter, List<Workshop> workshops, Profile p) throws IOException {
         workshopURL=URL;
         context=con;
         workshop= new Workshop();
         workshopAdapter=infoAdapter;
         workshop_List=workshops;
+        profile =p;
     }
 
     public void execute() {
 
         Log.d("chella", "hit the Information execute");
         OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder httpBuider = HttpUrl.parse(workshopURL).newBuilder();
+        httpBuider .addQueryParameter("emailId",profile.getId());
 
         Request request = new Request.Builder()
-                .url(workshopURL)
+                .url(httpBuider.build())
                 .get()
                 .build();
 

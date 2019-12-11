@@ -5,11 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -22,7 +24,6 @@ import com.example.onboarding.R;
 public class ProfileFragment extends Fragment {
 
     View root;
-    //String profileURL = "http://192.168.48.2:3000/profileStudent/";
     Profile profile;
     String notify;
 
@@ -45,13 +46,14 @@ public class ProfileFragment extends Fragment {
         ImageView editProfile = root.findViewById(R.id.editProfile);
         TextView rewards = root.findViewById(R.id.rewardText);
         Switch notification = root.findViewById(R.id.notificationSwitch);
-
-        profile.setId("sheetalpatil217@gmail.com");
+        ImageView sideArrow = root.findViewById(R.id.sideArrow);
+        ImageButton pastWorkshop = root.findViewById(R.id.pastWorkshopButton);
 
         //new ProfileAPI(profileURL,profile).execute();
         profileName.setText(profile.getName());
         profileID.setText(profile.getStudentID());
         rewards.setText(profile.getRewards());
+
         notify = profile.getNotification();
         if(notify == "ON"){
             notification.setChecked(true);
@@ -59,6 +61,24 @@ public class ProfileFragment extends Fragment {
         else {
             notification.setChecked(false);
         }
+
+        sideArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayout profileLayout = (ConstraintLayout) root.findViewById(R.id.profile_constraintLayout);
+                profileLayout.removeAllViews();
+                getFragmentManager().beginTransaction().add(R.id.profile_constraintLayout,new PastTaskFragment(),"pastTask").addToBackStack(null).commit();
+            }
+        });
+
+        pastWorkshop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayout profileLayout = (ConstraintLayout) root.findViewById(R.id.profile_constraintLayout);
+                profileLayout.removeAllViews();
+                getFragmentManager().beginTransaction().add(R.id.profile_constraintLayout,new pastWorkshopFragment(),"pastWorkshop").addToBackStack(null).commit();
+            }
+        });
 
 
     }

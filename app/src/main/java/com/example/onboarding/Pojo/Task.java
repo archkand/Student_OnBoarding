@@ -1,6 +1,8 @@
 package com.example.onboarding.Pojo;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     String id,taskName,description, dueDate, rewards,status,notify;
 
 
@@ -60,5 +62,16 @@ public class Task {
         this.notify = notify;
     }
 
-
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", taskName='" + taskName + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate='" + dueDate + '\'' +
+                ", rewards='" + rewards + '\'' +
+                ", status='" + status + '\'' +
+                ", notify='" + notify + '\'' +
+                '}';
+    }
 }

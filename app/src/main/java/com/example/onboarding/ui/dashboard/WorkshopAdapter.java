@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.Pojo.Workshop;
 import com.example.onboarding.R;
 
@@ -22,10 +24,12 @@ public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.ViewHo
 
     List<Workshop> workshops;
     FragmentActivity context;
+    Profile profile;
 
-    public WorkshopAdapter(List<Workshop> workshopList, FragmentActivity con) {
+    public WorkshopAdapter(List<Workshop> workshopList, FragmentActivity con, Profile p) {
         workshops = workshopList;
         context = con;
+        profile=p;
     }
 
     @NonNull
@@ -37,7 +41,7 @@ public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         Log.d("chella","Information list"+ workshops.toString());
         final Workshop workshop = workshops.get(position);
@@ -53,7 +57,9 @@ public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.ViewHo
                 builder.setMessage(workshop.getDescription()+"\n"+"\n"+"Date: "+workshop.getDate())
                         .setPositiveButton(R.string.registerButton, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                new RegisterAPI(context,workshop).execute();
+                                workshops.remove(position);
+                                notifyDataSetChanged();
+                                new RegisterAPI(context,workshop,profile).execute();
 
                              //   Toast.makeText(context, "Registered for "+workshop.getWorkshopName(), Toast.LENGTH_SHORT).show();
                             }

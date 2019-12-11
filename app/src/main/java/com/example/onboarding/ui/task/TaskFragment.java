@@ -44,8 +44,7 @@ public class TaskFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        PushNotifications.start(getActivity(), "7aecb41d-a52d-48e9-9cb6-35d5aef59e58");
-        PushNotifications.addDeviceInterest("hello");
+
 
         profile = ((MainActivity)getActivity()).profile;
 

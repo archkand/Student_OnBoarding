@@ -1,6 +1,8 @@
 package com.example.onboarding.Pojo;
 
-public class Workshop {
+import java.io.Serializable;
+
+public class Workshop implements Serializable {
     String id, workshopName,description, date;
 
     public String getId() {
