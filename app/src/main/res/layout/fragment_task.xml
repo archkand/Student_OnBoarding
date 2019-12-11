@@ -7,9 +7,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/taskList"
-        android:layout_width="477dp"
-        android:layout_height="755dp"
-        android:background="@color/cardview_light_background"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -8,7 +8,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_task"
-        android:layout_width="391dp"
+        android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginBottom="8dp"
         android:minHeight="200dp"
