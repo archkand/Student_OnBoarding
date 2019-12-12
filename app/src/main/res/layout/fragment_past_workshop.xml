@@ -9,10 +9,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pastWorkshopRecyclerView"
-        android:layout_width="406dp"
-        android:layout_height="626dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

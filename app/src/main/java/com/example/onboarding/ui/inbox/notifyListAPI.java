@@ -14,6 +14,7 @@ import com.example.onboarding.Pojo.Profile;
 import com.example.onboarding.Pojo.Task;
 import com.example.onboarding.Pojo.Workshop;
 import com.google.gson.Gson;
+import com.pusher.pushnotifications.PushNotifications;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +45,7 @@ public class notifyListAPI {
     List<Task> past_task_list = new ArrayList<>();
     List<Workshop> past_workshop_list = new ArrayList<>();
     List<Task> notify_task_list = new ArrayList<>();
+    List<Task> tasklist = new ArrayList<>();
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -156,6 +158,16 @@ public class notifyListAPI {
                             public void handleMessage(Message msg) {
                                 // Any UI task, example
                                 ((MainActivity)act).profile =profile;
+
+                                tasklist = profile.getNotifyTask();
+
+                                for(int i=0;i<tasklist.size();i++){
+                                    Log.d("stest","tasklist subscribe"+tasklist.get(i).getId());
+                                    PushNotifications.subscribe(tasklist.get(i).getId());
+                                }
+
+
+
                             }
                         };
                         handler.sendEmptyMessage(1);

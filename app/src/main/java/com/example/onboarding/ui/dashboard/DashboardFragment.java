@@ -48,28 +48,8 @@ public class DashboardFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         profile = ((MainActivity)getActivity()).profile;
-        new StepAPI(stepURL,profile).execute();
+        new StepAPI(stepURL,profile,getActivity()).execute();
 
-        View circleOne = root.findViewById(R.id.circle_one);
-        View circleTwo = root.findViewById(R.id.circle_two);
-        View circleThree = root.findViewById(R.id.circle_three);
-        //Drawable mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.step_circle);
-        Drawable greenCircle = ContextCompat.getDrawable(getContext(),R.drawable.circle_green);
-
-        switch (profile.getStep()){
-            case "1":
-                circleOne.setBackground(greenCircle);
-                break;
-            case "2":
-                circleOne.setBackground(greenCircle);
-                circleTwo.setBackground(greenCircle);
-                break;
-            case "3":
-                circleOne.setBackground(greenCircle);
-                circleTwo.setBackground(greenCircle);
-                circleThree.setBackground(greenCircle);
-                break;
-        }
 
         wRecyclerView = root.findViewById(R.id.workshopList);
         wRecyclerView.setHasFixedSize(true);

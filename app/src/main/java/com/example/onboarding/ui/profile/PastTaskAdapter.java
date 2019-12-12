@@ -58,8 +58,6 @@ public class PastTaskAdapter extends RecyclerView.Adapter<PastTaskAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             pastTaskName =itemView.findViewById(R.id.pastTaskName);
-            pastDueDate = itemView.findViewById(R.id.pastDueDateText);
-            pastRewards = itemView.findViewById(R.id.pastRewards);
 
         }
     }
